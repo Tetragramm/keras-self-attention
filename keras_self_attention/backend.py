@@ -3,10 +3,11 @@ import os
 __all__ = [
     'keras', 'utils', 'activations', 'applications', 'backend', 'datasets', 'engine',
     'layers', 'preprocessing', 'wrappers', 'callbacks', 'constraints', 'initializers',
-    'metrics', 'models', 'losses', 'optimizers', 'regularizers',
+    'metrics', 'models', 'losses', 'optimizers', 'regularizers', 'TF_KERAS',
 ]
 
-if 'TF_KERAS' in os.environ and os.environ['TF_KERAS'] != '0':
+try:
+    TF_KERAS = True
     from tensorflow.python import keras
     from tensorflow.python.keras import utils
     from tensorflow.python.keras import activations
@@ -25,7 +26,8 @@ if 'TF_KERAS' in os.environ and os.environ['TF_KERAS'] != '0':
     from tensorflow.python.keras import losses
     from tensorflow.python.keras import optimizers
     from tensorflow.python.keras import regularizers
-else:
+except ImportError:
+    TF_KERAS = False
     import keras
     from keras import utils
     from keras import activations
